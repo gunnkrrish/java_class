@@ -1,0 +1,12 @@
+{
+  "name": "bee",
+  "version": "1.0.0",
+  "main": "hello_01.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node hello_01.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
