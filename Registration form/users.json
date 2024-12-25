@@ -1,0 +1,24 @@
+[
+  {
+    "firstname": "gunn",
+    "lastname": "khurana",
+    "password": "231",
+    "mobile": "8930065035",
+    "birthdate": "2024-12-13",
+    "gender": "Female",
+    "address": "uwhidw",
+    "country": "India",
+    "pincode": "132103"
+  },
+  {
+    "firstname": "gunn",
+    "lastname": "khurana",
+    "password": "gunn",
+    "mobile": "8930065035",
+    "gender": "Female",
+    "birthdate": "2024-12-10",
+    "address": "hsiwhsiw",
+    "country": "India",
+    "pincode": "132103"
+  }
+]

@@ -4,9 +4,11 @@ function add(a,b){
 function sub(a,b){
     return a-b;
 }
-//module.exports = "gunn";
+// module.exports = "gunn";
 
-module.exports = {
-    addfn: add,
-    subfn: sub
-}
+module.exports = add;
+
+// module.exports = {
+//     addfn: add,
+//     subfn: sub
+// }
