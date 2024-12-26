@@ -2,10 +2,8 @@ const http = require('http');
 const fs = require('fs');
 const { parse } = require('querystring');
 
-// Create the server
 const server = http.createServer((req, res) => {
     if (req.method === 'GET') {
-        // Serve the registration form
         fs.readFile('index.html', (err, content) => {
             if (err) {
                 res.writeHead(500, { 'Content-Type': 'text/plain' });
@@ -16,28 +14,25 @@ const server = http.createServer((req, res) => {
             }
         });
     } else if (req.method === 'POST' && req.url === '/register') {
-        // Handle form data
         req.on('data', (body) => {
-            const parsedData = parse(body.toString()); // Parse the form data
-
-            // Check if password and confirm password match
+            const parsedData = parse(body.toString());
             if (parsedData.password !== parsedData.confirmpassword) {
                 res.writeHead(400, { 'Content-Type': 'text/plain' });
                 res.end('Error: Password and Confirm Password do not match.');
                 return;
             }
-
-            // Read existing data or initialize an empty array
             let users = [];
             try {
                 const existingData = fs.readFileSync('users.json', 'utf8');
                 users = JSON.parse(existingData);
-            } catch (err) {
-                console.log('Creating new users.json file.');
+            } catch (err) {}
+            const existingUser = users.find(user => user.mobile === parsedData.mobile);
+            if (existingUser) {
+                res.writeHead(400, { 'Content-Type': 'text/plain' });
+                res.end('You are already registered with this mobile number.');
+                return;
             }
-
-            // Add the new user and save
-            const { confirmpassword, ...userWithoutConfirmPassword } = parsedData; // Exclude confirm password
+            const { confirmpassword, ...userWithoutConfirmPassword } = parsedData;
             users.push(userWithoutConfirmPassword);
             fs.writeFile('users.json', JSON.stringify(users, null, 2), (err) => {
                 if (err) {
@@ -55,7 +50,6 @@ const server = http.createServer((req, res) => {
     }
 });
 
-// Start the server
 server.listen(3000, () => {
     console.log('Server running at http://localhost:3000');
 });

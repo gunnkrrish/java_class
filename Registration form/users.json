@@ -20,5 +20,16 @@
     "address": "hsiwhsiw",
     "country": "India",
     "pincode": "132103"
+  },
+  {
+    "firstname": "gunn",
+    "lastname": "khurana",
+    "password": "q12",
+    "mobile": "780982068792",
+    "gender": "Female",
+    "birthdate": "2005-09-22",
+    "address": "hu",
+    "country": "India",
+    "pincode": "232"
   }
 ]
