@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 app.use(express.json()); //this is a middleware between request and response
-const port = 3001
+const port = 3002
 
 app.get("/",(req,res)=>{
     res.send("hii world...")
@@ -21,7 +21,46 @@ app.post("/register_user",(req,res)=>{
     else{
         user_id = users[users.length-1].id + 1;
     }
+    const new_user = {
+        id : user_id,
+        name : req.body.name,
+        age : req.body.age,
+        password : req.body.password
+    }
+    users.push(new_user);  //thunder client (ss taken)     run in post
+    console.log(users);
+    res.status(200).json({message : "user registered..."});
 })
+
+//updation
+app.put("/update_user/:id",(req,res)=>{ //:id is a parameter
+    const user_id = req.params.id
+    //console.log(user_id);                                 // run in put in thunder client
+    for(let i =0; i<users.length;i++){
+        if(users[i].id == user_id){
+            users[i].name = req.body.name,
+            users[i].age = req.body.age,
+            users[i].password = req.body.password
+
+            console.log(users)
+            return res.status(200).json({message : "user updated success...."})
+        }
+    }
+    res.status(400).json({message : "user not found..."})
+})
+
+app.delete("/delete_user/:id",(req,res)=>{
+    const user_id = req.params.id
+    for(let i =0; i<users.length;i++){
+        if(users[i].id == user_id){
+           users.splice(i,1);
+            console.log(users)
+            return res.status(200).json({message : "user deleted success...."})
+        }
+    }
+    res.status(400).json({message : "user not found..."})
+})
+
 
 app.listen(port,()=>{
     console.log("server running...")
@@ -48,8 +87,8 @@ app.listen(port,()=>{
 /* request methods: 
 Get (not secure) : isme sari values url m ajegi
 post (secure) : isme nhi ati
-put : updateion
-patch : updateion
+put : updations (new data is send and if not created create)
+patch : updateion (partial data)
 delete :  delete
 
 STATUS CODE : 
