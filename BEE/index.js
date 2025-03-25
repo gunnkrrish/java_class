@@ -1,4 +1,5 @@
 const express = require('express')
+const bcrypt = require ('bcrypt');
 const app = express()
 app.use(express.json()); //this is a middleware between request and response
 const port = 3002
@@ -21,11 +22,15 @@ app.post("/register_user",(req,res)=>{
     else{
         user_id = users[users.length-1].id + 1;
     }
+
+    const hashedPassword = bcrypt.hashSync(req.body.password,8);
     const new_user = {
         id : user_id,
         name : req.body.name,
         age : req.body.age,
-        password : req.body.password
+        // password : req.body.password
+        password : hashedPassword
+
     }
     users.push(new_user);  //thunder client (ss taken)     run in post
     console.log(users);
@@ -67,6 +72,7 @@ app.listen(port,()=>{
 })
 
 
+//npm i bcrypt : to encrypt lib
 
 //run by localhost:3001
 
