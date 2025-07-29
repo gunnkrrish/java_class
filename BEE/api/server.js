@@ -1,17 +1,24 @@
-const express = require('express');
-const chalk = require('chalk');
+const express = require("express");
+const path = require("path");
 const app = express();
-const ejs = require('ejs');
-const path = require('path');
+const port = 8008;
 
-app.set('view engine','ejs')
+// Tell Express where to find the views folder
+app.set("views", path.join(__dirname, "../views"));
+app.set("view engine", "ejs");
 
-app.set("view",path.join(__dirname,"views"));
+// Serve static files
+app.use(express.static(path.join(__dirname, "../public")));
 
-app.get("/home",(req,res)=>{
-    const name = req.params.name;
-    res.render("1_index",{name:name});
+app.get("/", (req, res) => {
+    res.render("home");
+});
 
-})
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
 
-module.exports = app;
+
+
+
+//git koi empty folder ka track ni rkhta(and u want ki dikahye to .gitkeep ka use krna pdega) ni use extesnion auto gitkeep
